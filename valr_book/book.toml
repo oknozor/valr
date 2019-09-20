@@ -1,0 +1,5 @@
+[book]
+authors = ["okno"]
+multilingual = false
+src = "src"
+title = "Valr"
