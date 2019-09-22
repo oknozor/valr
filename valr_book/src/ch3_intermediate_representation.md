@@ -1,22 +1,6 @@
-extern crate proc_macro;
-use proc_macro::TokenStream;
-use quote::quote;
-use std::marker::PhantomData;
-use syn::parse::Parse;
-use syn::parse::ParseStream;
-use syn::parse::Result;
-use syn::Lit;
-use syn::Lit::*;
-use syn::Meta;
-use syn::NestedMeta;
-use syn::{
-    parse_macro_input, Attribute, Data, DeriveInput, Field, Fields, Ident, PathArguments, Type,
-};
+# Chapter 3
 
-mod validator;
-
-use validator::Validator;
-
+```rust
 struct ValidationBinding {
     struct_type: Ident,
     field_name: Ident,
@@ -106,18 +90,4 @@ fn get_metas_ident(meta: &Meta) -> Vec<Ident> {
         .map(|seg| seg.ident.clone())
         .collect::<Vec<Ident>>()
 }
-
-
-#[proc_macro_derive(Validator)]
-pub fn derive_validator(input: TokenStream) -> TokenStream {
-    let input = parse_macro_input!(input as DeriveInput);
-    let ident = input.ident;
-
-    let tokens = quote!(
-        impl #ident <'_> {
-            fn validate(&self) -> bool { true }
-        }
-    );
-
-    proc_macro::TokenStream::from(tokens)
-}
+```
